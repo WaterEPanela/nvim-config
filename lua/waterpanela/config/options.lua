@@ -28,3 +28,26 @@ vim.o.showmatch = true
 vim.o.matchtime = 2
 vim.o.title = true
 vim.opt.fillchars:append({ diff = "╱" })
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.opt.path:append("**")
+vim.o.wildmode = "longest:full,full"
+vim.opt.wildignore:append({ "*/node_modules/*", "*.o", "*.obj", "*.pyc", "*.class", "*.jar" })
+
+vim.o.swapfile = false
+vim.o.writebackup = false
+vim.o.undofile = true
+vim.o.undodir = vim.fn.stdpath("cache") .. "/undodir"
+vim.fn.mkdir(vim.o.undodir, "p")
+
+vim.o.updatetime = 300
+vim.o.timeoutlen = 500
+vim.o.ttimeoutlen = 0
+
+vim.o.splitbelow = true
+vim.o.splitright = true
+
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
