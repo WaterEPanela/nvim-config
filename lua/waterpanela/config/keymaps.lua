@@ -25,3 +25,13 @@ map("n", "<C-S-k>", "<C-w>+", { desc = "Taller window" })
 map("n", "<C-S-j>", "<C-w>-", { desc = "Shorter window" })
 
 map("n", "<Esc>", "<cmd>nohlsearch<cr><Esc>", { desc = "Clear search highlight" })
+
+map("n", "bd", "<cmd>confirm bdelete<cr>", { desc = "Close buffer" })
+map("n", "bo", function()
+	local current = vim.api.nvim_get_current_buf()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if buf ~= current and vim.bo[buf].buflisted then
+			pcall(vim.cmd.bdelete, { buf, mods = { confirm = true } }) -- Cancel on one buffer keeps it open and moves on
+		end
+	end
+end, { desc = "Close other buffers" })
