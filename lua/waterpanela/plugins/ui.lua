@@ -71,4 +71,24 @@ require("snacks").setup({
 	statuscolumn = { enabled = true },
 	words = { enabled = true },
 	scroll = { enabled = false }, -- scrolling stays instant
+	picker = {
+		enabled = true,
+		sources = {
+			-- Ctrl+n sidebar; snacks' explorer module stays off so oil keeps replacing netrw
+			explorer = {
+				hidden = true,
+				win = {
+					list = {
+						keys = {
+							["d"] = false,
+							["dd"] = "explorer_del",
+							["r"] = "explorer_rename", -- the prompt edits the path from cwd, so it moves too
+							["c"] = "explorer_add",
+							["<C-n>"] = "close", -- same key that opened it
+						},
+					},
+				},
+			},
+		},
+	},
 })

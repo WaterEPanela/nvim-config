@@ -10,6 +10,10 @@ local function label(tab)
 	local text
 	if vim.bo[buf].buftype == "terminal" then
 		text = "[Terminal]"
+	elseif vim.bo[buf].filetype == "oil" then
+		local dir = vim.fn.fnamemodify(path:gsub("^oil://", ""), ":~"):gsub("(.)/$", "%1")
+		local n = vim.fn.strchars(dir)
+		text = n > 20 and ("..." .. vim.fn.strcharpart(dir, n - 17)) or dir
 	elseif path == "" then
 		text = "[No Name]"
 	else
