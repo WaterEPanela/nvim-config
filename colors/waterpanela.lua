@@ -30,7 +30,7 @@ local hl = {
 	IncSearch = { link = "CurSearch" }, MatchParen = { fg = c.accent, bold = true, underline = true },
 	Pmenu = { fg = c.fg_dim, bg = c.float }, PmenuSel = { fg = c.fg, bg = c.visual, bold = true },
 	PmenuSbar = { bg = c.float }, PmenuThumb = { bg = c.border }, PmenuMatch = { fg = c.accent, bold = true },
-	StatusLine = { fg = c.fg_dim, bg = c.bg }, StatusLineNC = { fg = c.linenr, bg = c.bg },
+	StatusLine = { fg = c.fg_dim }, StatusLineNC = { fg = c.linenr }, -- transparent like the buffer
 	TabLine = { fg = c.base0, bg = c.base02 }, TabLineSep = { fg = c.base02 },
 	TabLineSel = { fg = c.base4, bg = c.tab, bold = true }, TabLineSelSep = { fg = c.tab },
 	TabLineFill = {},
@@ -83,7 +83,11 @@ local hl = {
 	LspInlayHint = { fg = c.comment, bg = c.cul, italic = true },
 	LspReferenceText = { bg = c.cul }, LspReferenceRead = { bg = c.cul }, LspReferenceWrite = { bg = c.cul, underline = true },
 
-	MiniIconsAzure = { fg = c.op }, MiniIconsBlue = { fg = c.fn }, MiniIconsCyan = { fg = c.str },
+	SnacksIndent = { fg = c.nontext }, SnacksIndentScope = { fg = c.linenr }, -- quiet guides, scope a step brighter
+
+	InclineNormal ={ fg = c.fg, bg = c.base02, bold = true }, InclineNormalNC = { fg = c.base0, bg = c.base02 },
+
+	MiniIconsAzure ={ fg = c.op }, MiniIconsBlue = { fg = c.fn }, MiniIconsCyan = { fg = c.str },
 	MiniIconsGreen = { fg = c.add }, MiniIconsGrey = { fg = c.fg_dim }, MiniIconsOrange = { fg = c.num },
 	MiniIconsPurple = { fg = c.kw }, MiniIconsRed = { fg = c.builtin }, MiniIconsYellow = { fg = c.type },
 }
