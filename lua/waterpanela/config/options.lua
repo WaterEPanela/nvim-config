@@ -52,6 +52,9 @@ vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 99
 
+vim.o.showtabline = 1 -- only with 2+ tabs
+vim.o.tabline = "%!v:lua.waterpanela.tabline.render()"
+
 require("vim._core.ui2").enable({
 	msg = {
 		target = "msg",

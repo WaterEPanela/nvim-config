@@ -12,6 +12,7 @@ local c = {
 	border = "#3b4466", search_bg = "#4d3420", search_fg = "#ffd2a8",
 	err = "#ff6e86", warn = "#ffb86c", info = "#6cb6ff", hint = "#7ee0c3",
 	add = "#7ee0a0", change = "#6cb6ff", del = "#ff6e86",
+	base02 = "#1b2033", base0 = "#93a0c0", base4 = "#f2f4ff", tab = "#5a4fcf", -- tabline
 }
 
 vim.cmd("hi clear")
@@ -30,7 +31,9 @@ local hl = {
 	Pmenu = { fg = c.fg_dim, bg = c.float }, PmenuSel = { fg = c.fg, bg = c.visual, bold = true },
 	PmenuSbar = { bg = c.float }, PmenuThumb = { bg = c.border }, PmenuMatch = { fg = c.accent, bold = true },
 	StatusLine = { fg = c.fg_dim, bg = c.bg }, StatusLineNC = { fg = c.linenr, bg = c.bg },
-	TabLine = { fg = c.linenr, bg = c.bg }, TabLineSel = { fg = c.fg, bg = c.cul, bold = true }, TabLineFill = { bg = c.bg },
+	TabLine = { fg = c.base0, bg = c.base02 }, TabLineSep = { fg = c.base02 },
+	TabLineSel = { fg = c.base4, bg = c.tab, bold = true }, TabLineSelSep = { fg = c.tab },
+	TabLineFill = {},
 	WinSeparator = { fg = c.border }, NonText = { fg = c.nontext }, Whitespace = { fg = c.nontext },
 	EndOfBuffer = { fg = c.nontext }, Conceal = { fg = c.comment },
 	Directory = { fg = c.kw }, Title = { fg = c.fn, bold = true }, Question = { fg = c.info },
