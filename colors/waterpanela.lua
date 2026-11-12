@@ -79,6 +79,10 @@ local hl = {
 	DiagnosticUnnecessary = { fg = c.comment }, DiagnosticDeprecated = { strikethrough = true },
 	LspInlayHint = { fg = c.comment, bg = c.cul, italic = true },
 	LspReferenceText = { bg = c.cul }, LspReferenceRead = { bg = c.cul }, LspReferenceWrite = { bg = c.cul, underline = true },
+
+	MiniIconsAzure = { fg = c.op }, MiniIconsBlue = { fg = c.fn }, MiniIconsCyan = { fg = c.str },
+	MiniIconsGreen = { fg = c.add }, MiniIconsGrey = { fg = c.fg_dim }, MiniIconsOrange = { fg = c.num },
+	MiniIconsPurple = { fg = c.kw }, MiniIconsRed = { fg = c.builtin }, MiniIconsYellow = { fg = c.type },
 }
 for name, spec in pairs(hl) do
 	vim.api.nvim_set_hl(0, name, spec)
