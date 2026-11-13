@@ -80,6 +80,11 @@ require("snacks").setup({
 	statuscolumn = { enabled = true },
 	words = { enabled = true },
 	scroll = { enabled = false }, -- scrolling stays instant
+	lazygit = {
+		theme = { activeBorderColor = { fg = "WarningMsg", bold = true } },
+		-- the edit command lives in ~/.config/lazygit/config.yml; drop snacks' preset so it can't compete
+		config = { os = { editPreset = "" } },
+	},
 	picker = {
 		enabled = true,
 		sources = {
