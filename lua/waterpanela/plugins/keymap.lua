@@ -133,3 +133,25 @@ end, { desc = "Stage / unstage buffer" })
 map("n", "<leader>gh", function()
 	require("gitsigns").stage_hunk() -- toggles: unstages an already-staged hunk
 end, { desc = "Stage / unstage hunk" })
+
+-- the open diff view's tab, so <leader>Dv can close it again
+local diff_tab
+vim.api.nvim_create_autocmd("User", {
+	pattern = { "CodeDiffOpen", "CodeDiffClose" },
+	callback = function(ev)
+		if ev.match == "CodeDiffOpen" and ev.data.mode == "explorer" then
+			diff_tab = ev.data.tabpage
+		elseif ev.match == "CodeDiffClose" and ev.data.tabpage == diff_tab then
+			diff_tab = nil
+		end
+	end,
+})
+map("n", "<leader>Dv", function()
+	if diff_tab and vim.api.nvim_tabpage_is_valid(diff_tab) then
+		vim.cmd.tabclose(vim.api.nvim_tabpage_get_number(diff_tab)) -- codediff cleans up on TabClosed
+	else
+		vim.cmd("CodeDiff")
+	end
+end, { desc = "Toggle diff view" })
+map("n", "<leader>Dh", "<cmd>CodeDiff history %<cr>", { desc = "File history" })
+map("n", "<leader>DH", "<cmd>CodeDiff history<cr>", { desc = "Repo history" })
