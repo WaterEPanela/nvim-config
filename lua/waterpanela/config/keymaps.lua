@@ -35,3 +35,20 @@ map("n", "bo", function()
 		end
 	end
 end, { desc = "Close other buffers" })
+
+-- "path#L<line>" in the clipboard, for pointing an agent at the exact line
+local function copy_path(modifier)
+	local path = vim.fn.expand("%" .. modifier)
+	if path == "" then
+		return vim.notify("Buffer has no file", vim.log.levels.WARN)
+	end
+	local text = ("%s#L%d"):format(path, vim.fn.line("."))
+	vim.fn.setreg("+", text)
+	vim.notify("Copied " .. text)
+end
+map("n", "<leader>yf", function()
+	copy_path(":.")
+end, { desc = "Copy relative path#line" })
+map("n", "<leader>yp", function()
+	copy_path(":p")
+end, { desc = "Copy absolute path#line" })
