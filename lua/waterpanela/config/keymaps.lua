@@ -52,3 +52,47 @@ end, { desc = "Copy relative path#line" })
 map("n", "<leader>yp", function()
 	copy_path(":p")
 end, { desc = "Copy absolute path#line" })
+
+-- Inkdrop-style code-block attributes, with the short language names it expects
+local short_lang = { typescriptreact = "tsx", javascriptreact = "jsx", typescript = "ts", javascript = "js" }
+map("x", "<leader>cc", function()
+	local first, last = vim.fn.line("v"), vim.fn.line(".")
+	if first > last then
+		first, last = last, first
+	end
+	local ft = vim.bo.filetype
+	local lines = vim.api.nvim_buf_get_lines(0, first - 1, last, false)
+	local header = ('```%s filename="%s" line=%d'):format(short_lang[ft] or ft, vim.fn.expand("%:."), first)
+	vim.fn.setreg("+", header .. "\n" .. table.concat(lines, "\n") .. "\n```\n")
+	vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "n", false)
+end, { desc = "Copy as Markdown code block" })
+
+map("n", "<leader>j", function()
+	local root = vim.fs.root(0, "package.json")
+	if not root then
+		return vim.notify("No package.json found", vim.log.levels.WARN)
+	end
+	local buf = vim.fn.bufadd(root .. "/package.json")
+	vim.fn.bufload(buf)
+	local w, h = math.floor(vim.o.columns * 0.8), math.floor(vim.o.lines * 0.8)
+	local win = vim.api.nvim_open_win(buf, true, {
+		relative = "editor", width = w, height = h,
+		col = math.floor((vim.o.columns - w) / 2), row = math.floor((vim.o.lines - h) / 2),
+	})
+	local keys = { "q", "<Esc>" }
+	for _, key in ipairs(keys) do
+		map("n", key, function()
+			vim.api.nvim_win_close(win, false)
+		end, { buffer = buf, nowait = true, desc = "Close package.json float" })
+	end
+	-- the buffer outlives the float, so take the close keys back off it
+	vim.api.nvim_create_autocmd("WinClosed", {
+		pattern = tostring(win),
+		once = true,
+		callback = function()
+			for _, key in ipairs(keys) do
+				pcall(vim.keymap.del, "n", key, { buffer = buf })
+			end
+		end,
+	})
+end, { desc = "Open package.json (float)" })
