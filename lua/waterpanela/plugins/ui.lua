@@ -1,4 +1,13 @@
-vim.cmd.colorscheme("waterpanela") -- colors/waterpanela.lua
+-- waterpanela (colors/waterpanela.lua, copy in backup/waterpanela/) is parked while we work
+require("kanagawa").setup({
+	transparent = true, -- kitty's background shows through
+	overrides = function(colors)
+		local ui = colors.theme.ui
+		-- the tabline's slanted edges take the fg of the tab they border
+		return { TabLineSep = { fg = ui.bg_m3 }, TabLineSelSep = { fg = ui.bg_p1 } }
+	end,
+})
+vim.cmd.colorscheme("kanagawa-dragon")
 
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons() -- plugins asking for nvim-web-devicons get mini.icons
@@ -92,3 +101,8 @@ require("snacks").setup({
 		},
 	},
 })
+
+require("todo-comments").setup() -- highlighting only; its search commands would need plenary.nvim
+
+-- defaults paint hex, rgb, hsl, ANSI and CSS variable colors as backgrounds
+require("nvim-highlight-colors").setup({ enable_tailwind = false })

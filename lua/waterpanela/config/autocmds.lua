@@ -20,3 +20,11 @@ vim.api.nvim_create_autocmd("WinLeave", {
 		vim.wo.cursorline = false
 	end,
 })
+
+-- nvim-highlight-colors already paints colors; don't let the LSP paint them twice
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = group,
+	callback = function(ev)
+		vim.lsp.document_color.enable(false, { bufnr = ev.buf })
+	end,
+})

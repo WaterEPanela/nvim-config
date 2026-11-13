@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.pack.add({
+	"https://github.com/rebelot/kanagawa.nvim",
 	"https://github.com/nvim-mini/mini.icons",
 	"https://github.com/rachartier/tiny-cmdline.nvim",
 	"https://github.com/nvim-lualine/lualine.nvim",
@@ -18,10 +19,16 @@ vim.pack.add({
 	"https://github.com/folke/snacks.nvim",
 	"https://github.com/stevearc/oil.nvim",
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	"https://github.com/folke/todo-comments.nvim",
+	"https://github.com/brenoprata10/nvim-highlight-colors",
+	"https://github.com/mason-org/mason.nvim",
+	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+	"https://github.com/neovim/nvim-lspconfig",
 })
 
 require("waterpanela.plugins.ui")
 require("waterpanela.plugins.explorer")
 require("waterpanela.plugins.treesitter")
+require("waterpanela.plugins.lsp")
 -- keymaps go last so every plugin is set up first
 require("waterpanela.plugins.keymap")

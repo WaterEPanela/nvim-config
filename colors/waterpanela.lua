@@ -71,6 +71,7 @@ local hl = {
 	["@diff.plus"] = { fg = c.add }, ["@diff.minus"] = { fg = c.del }, ["@diff.delta"] = { fg = c.change },
 	["@markup.heading"] = { fg = c.fn, bold = true }, ["@markup.link"] = { fg = c.kw, underline = true },
 	["@markup.raw"] = { fg = c.str }, ["@markup.strong"] = { bold = true }, ["@markup.italic"] = { italic = true },
+	["@lsp.type.variable"] = {}, -- keep treesitter's color (e.g. `map(...)` stays a function call, not plain white)
 	["@lsp.type.parameter"] = { link = "@variable.parameter" }, ["@lsp.type.property"] = { link = "@property" },
 
 	DiagnosticError = { fg = c.err }, DiagnosticWarn = { fg = c.warn },
@@ -81,7 +82,9 @@ local hl = {
 	DiagnosticVirtualTextInfo = { fg = c.info, bg = "#16233a" }, DiagnosticVirtualTextHint = { fg = c.hint, bg = "#152a28" },
 	DiagnosticUnnecessary = { fg = c.comment }, DiagnosticDeprecated = { strikethrough = true },
 	LspInlayHint = { fg = c.comment, bg = c.cul, italic = true },
-	LspReferenceText = { bg = c.cul }, LspReferenceRead = { bg = c.cul }, LspReferenceWrite = { bg = c.cul, underline = true },
+	-- violet tint: must differ from CursorLine (c.cul) or the word under the cursor shows nothing
+	LspReferenceText = { bg = "#2f2a52" }, LspReferenceRead = { bg = "#2f2a52" },
+	LspReferenceWrite = { bg = "#2f2a52", underline = true },
 
 	SnacksIndent = { fg = c.nontext }, SnacksIndentScope = { fg = c.linenr }, -- quiet guides, scope a step brighter
 
