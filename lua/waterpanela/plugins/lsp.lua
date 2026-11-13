@@ -9,9 +9,11 @@ require("mason-tool-installer").setup({
 	auto_update = false,
 })
 
--- merged into every server's config; lets oil/snacks renames update imports
+-- merged into every server's config: blink.cmp's completion, plus renames from oil/snacks updating imports
 vim.lsp.config("*", {
-	capabilities = { workspace = { fileOperations = { didRename = true, willRename = true } } },
+	capabilities = require("blink.cmp").get_lsp_capabilities({
+		workspace = { fileOperations = { didRename = true, willRename = true } },
+	}),
 })
 
 -- configs come from nvim-lspconfig's lsp/ dir
