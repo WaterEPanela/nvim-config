@@ -16,3 +16,19 @@ vim.lsp.config("*", {
 
 -- configs come from nvim-lspconfig's lsp/ dir
 vim.lsp.enable({ "eslint", "oxlint", "lua_ls", "cssls", "vtsls", "tailwindcss", "rust_analyzer" })
+
+-- one icon set for gutter signs and inline prefixes (mini.icons has none for diagnostics)
+local S = vim.diagnostic.severity
+local icons = { [S.ERROR] = "\u{f015a}", [S.WARN] = "\u{f002a}", [S.INFO] = "\u{f02fd}", [S.HINT] = "\u{f0336}" }
+vim.diagnostic.config({
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+	virtual_text = {
+		source = "if_many",
+		prefix = function(d)
+			return icons[d.severity]
+		end,
+	},
+	signs = { text = icons },
+})
