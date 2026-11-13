@@ -27,6 +27,7 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
 	"https://github.com/nvim-mini/mini.pairs",
 	"https://github.com/stevearc/conform.nvim",
+	"https://github.com/lewis6991/gitsigns.nvim",
 })
 
 require("waterpanela.plugins.ui")
@@ -35,5 +36,6 @@ require("waterpanela.plugins.treesitter")
 require("waterpanela.plugins.completion")
 require("waterpanela.plugins.lsp")
 require("waterpanela.plugins.formatting")
+require("waterpanela.plugins.git")
 -- keymaps go last so every plugin is set up first
 require("waterpanela.plugins.keymap")

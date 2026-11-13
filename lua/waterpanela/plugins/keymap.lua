@@ -96,3 +96,40 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		bmap("n", "<leader>cr", function() vim.lsp.buf.rename() end, "Rename symbol")
 	end,
 })
+
+map("n", "<leader>gb", function()
+	require("gitsigns").blame_line()
+end, { desc = "Blame line" })
+map("n", "<leader>gB", function()
+	require("gitsigns").blame()
+end, { desc = "Blame buffer" })
+map("n", "<leader>go", function()
+	local file = vim.api.nvim_buf_get_name(0)
+	local lnum = vim.fn.line(".")
+	local out = vim.system(
+		{ "git", "blame", "--porcelain", "-L", lnum .. "," .. lnum, "--", file },
+		{ cwd = vim.fs.dirname(file), text = true }
+	):wait()
+	-- porcelain: "<sha> <line in that commit> ..." plus "filename <path at that commit>"
+	local sha, orig = (out.stdout or ""):match("^(%x+) (%d+)")
+	local path = (out.stdout or ""):match("\nfilename ([^\n]+)")
+	if not sha or sha:match("^0+$") then
+		return vim.notify("Line isn't committed yet", vim.log.levels.WARN)
+	end
+	require("gitsigns").show(sha .. ":" .. path, { open = "tabnew" }, function()
+		vim.schedule(function()
+			pcall(vim.api.nvim_win_set_cursor, 0, { tonumber(orig), 0 })
+		end)
+	end)
+end, { desc = "Open file at the line's last commit (new tab)" })
+map("n", "<leader>gs", function()
+	local gs = require("gitsigns")
+	if #(gs.get_hunks() or {}) > 0 then
+		gs.stage_buffer()
+	else
+		gs.reset_buffer_index() -- nothing left to stage: unstage
+	end
+end, { desc = "Stage / unstage buffer" })
+map("n", "<leader>gh", function()
+	require("gitsigns").stage_hunk() -- toggles: unstages an already-staged hunk
+end, { desc = "Stage / unstage hunk" })
