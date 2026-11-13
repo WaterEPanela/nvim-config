@@ -36,3 +36,5 @@ require("blink.cmp").setup({
 		},
 	},
 })
+
+require("mini.pairs").setup({ modes = { command = true } }) -- default is insert only

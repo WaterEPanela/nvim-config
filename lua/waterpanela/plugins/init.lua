@@ -25,6 +25,8 @@ vim.pack.add({
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+	"https://github.com/nvim-mini/mini.pairs",
+	"https://github.com/stevearc/conform.nvim",
 })
 
 require("waterpanela.plugins.ui")
@@ -32,5 +34,6 @@ require("waterpanela.plugins.explorer")
 require("waterpanela.plugins.treesitter")
 require("waterpanela.plugins.completion")
 require("waterpanela.plugins.lsp")
+require("waterpanela.plugins.formatting")
 -- keymaps go last so every plugin is set up first
 require("waterpanela.plugins.keymap")
